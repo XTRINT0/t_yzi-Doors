@@ -1,0 +1,114 @@
+local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
+
+function MakeSound(id,volume,pitch)
+	local Snd = Instance.new("Sound",workspace)
+	Snd.SoundId = "rbxassetid//"..id
+	Snd.Volume = volume
+	Snd.Pitch = pitch
+	Snd:Play()
+end
+
+local Window = OrionLib:MakeWindow({Name = "DOORS👁️ FE Script", HidePremium = true, SaveConfig = false, ConfigFolder = "izyDoorSavers",IntroEnabled = false})
+
+local GameSideTab = Window:MakeTab({
+	Name = "Game",
+	Icon = "rbxassetid://4483345998",
+	PremiumOnly = false
+})
+
+
+local Speed = 14
+
+game:GetService("RunService").RenderStepped:Connect(function()
+	game.Players.LocalPlayer.Character:FindFirstChildOfClass("Humanoid").WalkSpeed = Speed
+end)
+
+function yourRushcome()
+	OrionLib:MakeNotification({
+		Name = "Warning",
+		Content = "Rush is coming. HIDE!!",
+		Image = "rbxassetid://10642754311",
+		Time = 5
+	})
+end
+
+--_G.WarnRush = false
+---------------------VALUES
+local WarnPNG_Enemies = false
+local FullBright = false
+--------------------- RUN SERICES
+game:GetService("RunService").RenderStepped:Connect(function()
+    ga
+end)
+-------------------------------------------------------------------------
+local didRushSpawn = false
+spawn(function()
+    while wait(1) do
+        if WarnPNG_Enemies == true then
+	        local FindRush = game.Workspace:FindFirstChild("RushMoving")
+            if FindRush then
+                if didRushSpawn == false then
+                    didRushSpawn = true
+                    yourRushcome()
+                end
+            else
+                didRushSpawn = false
+             end
+        end
+    end
+end)
+
+
+-----------------------------------------------------------------------
+
+GameSideTab:AddSlider({
+	Name = "Walkspeed",
+	Min = 14,
+	Max = 50,
+	Default = 14,
+	Color = Color3.fromRGB(255, 184, 184),
+	Increment = 1,
+	ValueName = "Speed",
+	Callback = function(Value)
+		Speed = Value
+	end    
+})
+
+GameSideTab:AddToggle({
+	Name = "Toggle Seeks Chase Song",
+	Default = false,
+	Callback = function(Value)
+		if Value == true then
+			game:GetService("Workspace")["Ambience_Seek"].Playing = true
+			game:GetService("Workspace")["Ambience_Seek"].Looped = true
+		elseif Value == false then
+			game:GetService("Workspace")["Ambience_Seek"]:Stop()
+		end
+	end    
+})
+
+GameSideTab:AddToggle({
+	Name = "Warn PNG's Entities(Rush & Ambush)",
+	Default = false,
+	Callback = function(Value)
+		WarnPNG_Enemies = Value
+	end    
+})
+
+--[[
+local VisualsTab = Window:MakeTab({
+	Name = "Visuals",
+	Icon = "rbxassetid://10686484311",
+	PremiumOnly = false
+})
+
+VisualsTab:AddToggle({
+	Name = "Bypass Lighting",
+	Default = false,
+	Callback = function(Value)
+		
+	end    
+})
+--]]
+
+OrionLib:Init()
